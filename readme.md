@@ -1,12 +1,13 @@
-Launches chrome, kicks off lighthouse report, and stores in `lighthouse-reports`
+Launches chrome, kicks off lighthouse report, and stores in `lighthouse-reports`.
+URLs are parametrized and stored in constants.
 
 ### To Launch
 
-node report.js --url `url`
+-- --endpoint `endpointparam`
 
 ### To compare
 
-node report.js --from `filename` --to `filename`
+-- --from `filename` --to `filename`
 
 This command prints out the metricFilters to the command line
 

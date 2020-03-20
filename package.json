@@ -4,7 +4,8 @@
   "description": "Tool to create and store lighthouse reports",
   "main": "report.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lighthouse": "node report.js"
   },
   "author": "Tyler Pedora",
   "license": "ISC",
@@ -13,7 +14,6 @@
     "fs": "0.0.1-security",
     "glob": "^7.1.6",
     "lighthouse": "^5.6.0",
-    "url": "^0.11.0",
     "yargs": "^15.3.1"
   }
 }

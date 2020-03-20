@@ -1,10 +1,10 @@
 const lighthouse = require("lighthouse");
 const chromeLauncher = require("chrome-launcher");
 const argv = require("yargs").argv;
-const url = require("url");
 const fs = require("fs");
 const glob = require("glob");
 const path = require("path");
+const urls = require("./constants");
 
 const launchChromeAndRunLighthouse = url => {
   return chromeLauncher.launch().then(chrome => {
@@ -76,12 +76,8 @@ if (argv.from && argv.to) {
     getContents(argv.from + ".json"),
     getContents(argv.to + ".json")
   );
-} else if (argv.url) {
-  const urlObj = new URL(argv.url);
-  let dirName = urlObj.host.replace("www.", "");
-  if (urlObj.pathname !== "/") {
-    dirName = dirName + urlObj.pathname.replace(/\//g, "_");
-  }
+} else if (argv.endpoint) {
+  const dirName = argv.endpoint;
 
   // If you want the files/folders to be in a different location, alter this block, and the block further down
   if (!fs.existsSync("./lighthouse-reports") && !fs.existsSync(`./lighthouse-reports/${dirName}`)) {
@@ -91,7 +87,7 @@ if (argv.from && argv.to) {
     fs.mkdirSync(`./lighthouse-reports/${dirName}`);
   }
 
-  launchChromeAndRunLighthouse(argv.url).then(results => {
+  launchChromeAndRunLighthouse(urls[dirName]).then(results => {
     const prevReports = glob(`${dirName}/*.json`, {
       sync: true
     });
@@ -125,6 +121,6 @@ if (argv.from && argv.to) {
     );
   });
 } else {
-  throw "You haven't passed a URL to Lighthouse";
+  throw "You haven't passed a parameter to Lighthouse";
 }
 
